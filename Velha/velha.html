@@ -1,0 +1,229 @@
+<!DOCTYPE html>
+  <head>
+      <title>Jogo da Velha</title>
+      <meta charset="UTF-8">
+      <meta name="viewport" content="width=device-width, initial-scale=1">
+      <link rel="stylesheet" type="text/css" href="velha.css">
+  </head>
+  <body>
+      <h1 id="logo">SUPER JOGO DA VELHA EXTREME!</h1>
+      <img width="160px" height="110px" src="https://www.iconexperience.com/_img/o_collection_png/green_dark_grey/512x512/plain/symbol_hash.png" alt="icon">
+      <br><br>
+      <hr>
+      <br><br>
+      <span id="player1"><h2>JOGADOR 1</h2><h2>0</h2></span>
+      <span id="player2"><h2>JOGADOR 2</h2><h2>0</h2></span>
+      <div class="linha1">
+          <span id="span1" class="frame1 frameUm" onmouseover="mouseOverFrame(this)" onmouseout="mouseOutFrame(this)" onclick="mouseClickFrame(this)"></span>
+          <span id="span2" class="frame2 frameUm" onmouseover="mouseOverFrame(this)" onmouseout="mouseOutFrame(this)" onclick="mouseClickFrame(this)"></span>
+          <span id="span3" class="frame3 frameUm" onmouseover="mouseOverFrame(this)" onmouseout="mouseOutFrame(this)" onclick="mouseClickFrame(this)"></span>
+      </div><br>
+      <div class="linha2">
+          <span id="span4" class="frame4 frameDois" onmouseover="mouseOverFrame(this)" onmouseout="mouseOutFrame(this)" onclick="mouseClickFrame(this)"></span>
+          <span id="span5" class="frame5 frameDois" onmouseover="mouseOverFrame(this)" onmouseout="mouseOutFrame(this)" onclick="mouseClickFrame(this)"></span>
+          <span id="span6" class="frame6 frameDois" onmouseover="mouseOverFrame(this)" onmouseout="mouseOutFrame(this)" onclick="mouseClickFrame(this)"></span>
+      </div>
+      <div class="linha3">
+          <span id="span7" class="frame7 frameTres" onmouseover="mouseOverFrame(this)" onmouseout="mouseOutFrame(this)" onclick="mouseClickFrame(this)"></span>
+          <span id="span8" class="frame8 frameTres" onmouseover="mouseOverFrame(this)" onmouseout="mouseOutFrame(this)" onclick="mouseClickFrame(this)"></span>
+          <span id="span9" class="frame9 frameTres" onmouseover="mouseOverFrame(this)" onmouseout="mouseOutFrame(this)" onclick="mouseClickFrame(this)"></span>
+      </div>
+      <br><br><br>
+      <hr>
+      <div class="hud">
+        <h3>Rodada <color style="color: red;">O</color>:</h3>
+        <h4>Jogador 1</h4>
+        <img width="260px" height="110px" src="https://img00.deviantart.net/7d6d/i/2015/223/3/a/pixel_art__5__megaman_by_angeladfectus-d95acsl.png" alt="battle image">
+      </div>
+      <br><br>
+      <div class="options">
+        <button class="botao1 botao" onclick="resetGame()">Resetar Partida</button>
+        <button class="botao2 botao" onclick="resetVictories()">Zerar Placares</button>
+      </div>
+
+      <script type="text/javascript">
+          function getRandomColor() {
+            var letters = '0123456789ABCDEF';
+            var color = '#';
+            for (var i = 0; i < 6; i++) {
+              color += letters[Math.floor(Math.random() * 16)];
+            }
+            return color;
+          }
+
+          window.setInterval(function() {
+              callTitle()
+          }, 500);
+
+          function callTitle() {
+            var random_color = getRandomColor();
+            document.getElementById('logo').style.color = random_color;
+          }
+      </script>
+
+      <script type="text/javascript">
+          var frames;
+          var victories;
+
+          window.onload = function() {
+            frames = [0,0,0, 0,0,0, 0,0,0];
+            victories = [0, 0];
+          };
+
+          function mouseOverFrame(fr) {
+            if (frames[fr.className[5]-1] == 0) {
+                var txt = document.getElementsByTagName("h4")[0];
+                fr.style.backgroundColor = (txt.textContent == "Jogador 1") ? "red" : "blue";
+            }
+          }
+
+          function mouseOutFrame(fr) {
+            if (frames[fr.className[5]-1] == 0) {
+                fr.style.backgroundColor = "transparent";
+            }
+          }
+
+          function mouseClickFrame(fr) {
+            if (frames[fr.className[5]-1] == 0) {
+                var txt = document.getElementsByTagName("h4")[0];
+                frames[fr.className[5]-1] = (txt.textContent == "Jogador 1") ? 1 : 2;
+                txt.textContent = (txt.textContent == "Jogador 1") ? "Jogador 2" : "Jogador 1";
+                var pl = document.getElementsByTagName("color")[0];
+                pl.textContent = (pl.textContent == "O") ? "X" : "O";
+                pl.style.color = (pl.textContent == "O") ? "red" : "blue";
+
+                // Verificando se houve vitória
+                if (
+                    (frames[0] == 1 && frames[1] == 1 && frames[2] == 1) || // Primeira linha horizontal
+                    (frames[3] == 1 && frames[4] == 1 && frames[5] == 1) || // Segunda linha horizontal
+                    (frames[6] == 1 && frames[7] == 1 && frames[8] == 1) || // Terceira linha horizontal
+                    (frames[0] == 1 && frames[3] == 1 && frames[6] == 1) || // Primeira coluna vertical
+                    (frames[1] == 1 && frames[4] == 1 && frames[7] == 1) || // Segunda coluna vertical
+                    (frames[2] == 1 && frames[5] == 1 && frames[8] == 1) || // Terceira coluna vertical
+                    (frames[0] == 1 && frames[4] == 1 && frames[8] == 1) || // Diagonal 1
+                    (frames[2] == 1 && frames[4] == 1 && frames[6] == 1)    // Diagonal 2
+                   )
+                {
+                    alert("Jogador 1 venceu!");
+                    var d1 = document.getElementById("span1");
+                    var d2 = document.getElementById("span2");
+                    var d3 = document.getElementById("span3");
+                    var d4 = document.getElementById("span4");
+                    var d5 = document.getElementById("span5");
+                    var d6 = document.getElementById("span6");
+                    var d7 = document.getElementById("span7");
+                    var d8 = document.getElementById("span8");
+                    var d9 = document.getElementById("span9");
+                    d1.style.backgroundColor = "red";
+                    d2.style.backgroundColor = "red";
+                    d3.style.backgroundColor = "red";
+                    d4.style.backgroundColor = "red";
+                    d5.style.backgroundColor = "red";
+                    d6.style.backgroundColor = "red";
+                    d7.style.backgroundColor = "red";
+                    d8.style.backgroundColor = "red";
+                    d9.style.backgroundColor = "red";
+
+                    frames = [1,1,1, 1,1,1, 1,1,1];
+                    txt.textContent = "Jogador 1";
+                    pl.textContent = "O";
+                    pl.style.color = "red";
+
+                    victories[0] += 1;
+                    var v = document.getElementsByTagName("h2")[1];
+                    v.textContent = victories[0];
+                }
+                else if (
+                          (frames[0] == 2 && frames[1] == 2 && frames[2] == 2) || // Primeira linha horizontal
+                          (frames[3] == 2 && frames[4] == 2 && frames[5] == 2) || // Segunda linha horizontal
+                          (frames[6] == 2 && frames[7] == 2 && frames[8] == 2) || // Terceira linha horizontal
+                          (frames[0] == 2 && frames[3] == 2 && frames[6] == 2) || // Primeira coluna vertical
+                          (frames[1] == 2 && frames[4] == 2 && frames[7] == 2) || // Segunda coluna vertical
+                          (frames[2] == 2 && frames[5] == 2 && frames[8] == 2) || // Terceira coluna vertical
+                          (frames[0] == 2 && frames[4] == 2 && frames[8] == 2) || // Diagonal 1
+                          (frames[2] == 2 && frames[4] == 2 && frames[6] == 2)    // Diagonal 2
+                        )
+                {
+                    alert("Jogador 2 venceu!");
+                    var d1 = document.getElementById("span1");
+                    var d2 = document.getElementById("span2");
+                    var d3 = document.getElementById("span3");
+                    var d4 = document.getElementById("span4");
+                    var d5 = document.getElementById("span5");
+                    var d6 = document.getElementById("span6");
+                    var d7 = document.getElementById("span7");
+                    var d8 = document.getElementById("span8");
+                    var d9 = document.getElementById("span9");
+                    d1.style.backgroundColor = "blue";
+                    d2.style.backgroundColor = "blue";
+                    d3.style.backgroundColor = "blue";
+                    d4.style.backgroundColor = "blue";
+                    d5.style.backgroundColor = "blue";
+                    d6.style.backgroundColor = "blue";
+                    d7.style.backgroundColor = "blue";
+                    d8.style.backgroundColor = "blue";
+                    d9.style.backgroundColor = "blue";
+
+                    frames = [2,2,2, 2,2,2, 2,2,2];
+                    txt.textContent = "Jogador 2";
+                    pl.textContent = "X";
+                    pl.style.color = "blue";
+
+                    victories[1] += 1;
+                    var v = document.getElementsByTagName("h2")[3];
+                    v.textContent = victories[1];
+                }
+
+                if (frames[0] != 0 && frames[1] != 0 && frames[2] != 0 &&
+                    frames[3] != 0 && frames[4] != 0 && frames[5] != 0 &&
+                    frames[6] != 0 && frames[7] != 0 && frames[8] != 0)
+                {
+                    // Empate
+                    txt.textContent = "VELHA";
+                    pl.textContent = "=(";
+                    pl.style.color = "purple";
+                }
+            }
+          }
+
+          function resetGame() {
+            frames = [0,0,0, 0,0,0, 0,0,0];
+
+            var pl = document.getElementsByTagName("color")[0];
+            pl.textContent = "O";
+            pl.style.color = "red";
+
+            var txt = document.getElementsByTagName("h4")[0];
+            txt.textContent = "Jogador 1";
+
+            var d1 = document.getElementById("span1");
+            var d2 = document.getElementById("span2");
+            var d3 = document.getElementById("span3");
+            var d4 = document.getElementById("span4");
+            var d5 = document.getElementById("span5");
+            var d6 = document.getElementById("span6");
+            var d7 = document.getElementById("span7");
+            var d8 = document.getElementById("span8");
+            var d9 = document.getElementById("span9");
+
+            d1.style.backgroundColor = "white";
+            d2.style.backgroundColor = "white";
+            d3.style.backgroundColor = "white";
+            d4.style.backgroundColor = "white";
+            d5.style.backgroundColor = "white";
+            d6.style.backgroundColor = "white";
+            d7.style.backgroundColor = "white";
+            d8.style.backgroundColor = "white";
+            d9.style.backgroundColor = "white";
+          }
+
+          function resetVictories() {
+            victories = [0,0];
+            var v1 = document.getElementsByTagName("h2")[1];
+            var v2 = document.getElementsByTagName("h2")[3];
+            v1.textContent = victories[0];
+            v2.textContent = victories[1];
+          }
+      </script>
+  </body>
+</html>

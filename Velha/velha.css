@@ -1,0 +1,86 @@
+.linha1, .linha2, .linha3 {
+  width: 300px;
+  margin: 0 auto;
+  text-align: center;
+}
+
+.frameUm {
+  border: solid;
+  padding-top: 10px;
+  padding-bottom: 10px;
+  padding-left: 40px;
+}
+
+.frameDois {
+  border: solid;
+  padding-top: 10px;
+  padding-bottom: 10px;
+  padding-left: 40px;
+  position: relative;
+  top: 2px;
+}
+
+.frameTres {
+  border: solid;
+  padding-top: 10px;
+  padding-bottom: 10px;
+  padding-left: 40px;
+  position: relative;
+  top: 24px;
+}
+
+h1 {
+  text-align: center;
+}
+
+h2 {
+  text-align: center;
+}
+
+img {
+  display: block;
+  margin: 0 auto;
+}
+
+#player1 {
+  float: left;
+}
+
+#player2 {
+  float: right;
+}
+
+h3, h4 {
+  font-family: Verdana;
+  text-align: center;
+}
+
+.options {
+  width: 100%;
+  text-align: center;
+}
+
+.botao {
+  border: none;
+  color: white;
+  padding: 16px 32px;
+  text-align: center;
+  font-size: 16px;
+  opacity: 0.6;
+  transition: 0.3s;
+  display: inline-block;
+  text-decoration: none;
+  cursor: pointer;
+}
+
+.botao:hover {
+  opacity: 1;
+}
+
+.botao1 {
+  background-color: #ac39ac;
+}
+
+.botao2 {
+  background-color: #ff5c33;
+}
